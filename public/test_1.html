@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TopThat plugin: Test1</title>
+    <style type="text/css">
+      body { margin: 0; padding: 0; }
+      header { height: 50px; background-color: #ddd; }
+      section { height: 3000px; }
+      footer { height: 100px; background-color: #555; }
+    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/topthat.css">
+  </head>
+  <body>
+    <header>
+      Sticky Header
+    </header>
+    <section>
+      Main section
+    </section>
+    <footer>
+      Footer
+    </footer>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="javascripts/jquery.topthat.js"></script>
+    <script type="text/javascript">
+      $("header").topthat();
+    </script>
+  </body>
+</html>
