@@ -1,5 +1,5 @@
-jquery-topthat (Under development, not production ready!)
-=========================================================
+jquery-topthat
+==============
 
 sticky top on scroll
 
