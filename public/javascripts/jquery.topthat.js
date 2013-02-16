@@ -12,12 +12,14 @@
         that = this;
         initialPosition = that.offset();
         initialHeight = that.height();
-        return $(window).scroll(function(event) {
-          if ($(window).scrollTop() > (initialPosition.top + initialHeight)) {
-            return methods.stick.apply(that);
-          } else {
-            return methods.unstick.apply(that);
-          }
+        return this.each(function(index, elem) {
+          return $(window).scroll(function(event) {
+            if ($(window).scrollTop() > (initialPosition.top + initialHeight)) {
+              return methods.stick.apply(that);
+            } else {
+              return methods.unstick.apply(that);
+            }
+          });
         });
       },
       stick: function() {

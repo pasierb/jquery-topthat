@@ -10,8 +10,9 @@
       initialPosition = that.offset()
       initialHeight = that.height()
 
-      $(window).scroll (event) ->
-        (if $(window).scrollTop() > (initialPosition.top + initialHeight) then methods.stick.apply(that) else methods.unstick.apply(that))
+      @.each (index, elem) ->
+        $(window).scroll (event) ->
+          (if $(window).scrollTop() > (initialPosition.top + initialHeight) then methods.stick.apply(that) else methods.unstick.apply(that))
 
     stick: ->
       return if @hasClass(defaults.stickCssClass)

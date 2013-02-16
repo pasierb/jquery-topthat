@@ -5,7 +5,11 @@ describe("topthat", function () {
     $(".navbar").remove();
     fixture = $("<div class='navbar'>Some element to be sticky on scroll</div>");
     fixture.appendTo("body");
-    fixture.topthat();
+  });
+
+  it("should maintain chainability", function () {
+    var chain = fixture.topthat();
+    expect(chain).toBe(fixture);
   });
   
   describe("stick", function () {
