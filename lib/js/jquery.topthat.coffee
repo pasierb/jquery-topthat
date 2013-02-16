@@ -6,24 +6,37 @@
   
   methods =
     init: (options) ->
-      that = this
-      initialPosition = that.offset()
-      initialHeight = that.height()
+      settings = $.extend defaults, options
 
-      @.each (index, elem) ->
+      @each (index, elem) ->
+        $this = $(elem)
+        initialPosition = $this.offset()
+        initialHeight = $this.height()
+        
+        $this.data 'topthat', settings
         $(window).scroll (event) ->
-          (if $(window).scrollTop() > (initialPosition.top + initialHeight) then methods.stick.apply(that) else methods.unstick.apply(that))
+          console.log $this
+          if $(window).scrollTop() > initialPosition.top then $this.topthat("stick") else $this.topthat("unstick")
+
 
     stick: ->
-      return if @hasClass(defaults.stickCssClass)
-      @replaceWith placeholder
-      @prependTo "body"
-      @addClass defaults.stickCssClass
+      @each (index, elem) ->
+        $this = $(elem)
+        data = $this.data()
+        unless $this.hasClass data.topthat.stickCssClass
+          $this.replaceWith placeholder
+          $this.prependTo "body"
+          $this.data data
+          $this.addClass data.topthat.stickCssClass
 
     unstick: ->
-      return unless @hasClass(defaults.stickCssClass)
-      @removeClass defaults.stickCssClass
-      placeholder.replaceWith this
+      @each (index, elem) ->
+        $this = $(elem)
+        data = $this.data()
+        if $this.hasClass data.topthat.stickCssClass
+          $this.removeClass data.topthat.stickCssClass
+          placeholder.replaceWith $this
+          $this.data data
 
   
   $.fn.topthat = (method) ->

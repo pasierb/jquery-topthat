@@ -8,30 +8,48 @@
     placeholder = $("<div style='display:none;' class='topthat-ph-" + Date.now() + "'></div>");
     methods = {
       init: function(options) {
-        var initialHeight, initialPosition, that;
-        that = this;
-        initialPosition = that.offset();
-        initialHeight = that.height();
+        var settings;
+        settings = $.extend(defaults, options);
         return this.each(function(index, elem) {
+          var $this, initialHeight, initialPosition;
+          $this = $(elem);
+          initialPosition = $this.offset();
+          initialHeight = $this.height();
+          $this.data('topthat', settings);
           return $(window).scroll(function(event) {
-            if ($(window).scrollTop() > (initialPosition.top + initialHeight)) {
-              return methods.stick.apply(that);
+            console.log($this);
+            if ($(window).scrollTop() > initialPosition.top) {
+              return $this.topthat("stick");
             } else {
-              return methods.unstick.apply(that);
+              return $this.topthat("unstick");
             }
           });
         });
       },
       stick: function() {
-        if (this.hasClass(defaults.stickCssClass)) return;
-        this.replaceWith(placeholder);
-        this.prependTo("body");
-        return this.addClass(defaults.stickCssClass);
+        return this.each(function(index, elem) {
+          var $this, data;
+          $this = $(elem);
+          data = $this.data();
+          if (!$this.hasClass(data.topthat.stickCssClass)) {
+            $this.replaceWith(placeholder);
+            $this.prependTo("body");
+            $this.data(data);
+            return $this.addClass(data.topthat.stickCssClass);
+          }
+        });
       },
       unstick: function() {
-        if (!this.hasClass(defaults.stickCssClass)) return;
-        this.removeClass(defaults.stickCssClass);
-        return placeholder.replaceWith(this);
+        return this.each(function(index, elem) {
+          var $this, data;
+          $this = $(elem);
+          data = $this.data();
+          if ($this.hasClass(data.topthat.stickCssClass)) {
+            $this.removeClass(data.topthat.stickCssClass);
+            placeholder.replaceWith($this);
+            return $this.data(data);
+          }
+        });
       }
     };
     return $.fn.topthat = function(method) {
