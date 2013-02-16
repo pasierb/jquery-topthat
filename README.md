@@ -3,6 +3,20 @@ jquery-topthat
 
 sticky top on scroll
 
+Usage
+----------------------------
+
+``` $("selector").topthat() ```
+
+you can provide options:
+
+``` 
+$("selector").topthat({
+  stickCssClass: "sticky",  // css class that will be applied o element when sticked
+  prependTo: "body"         // set to null if you don't want to detach element
+}) 
+```
+
 Development notes
 ----------------------------
 
@@ -19,7 +33,7 @@ and UglifyJS 2 (node package)
 
 
 Testing
-----------
+----------------------------
 
 To install jasmine framework just run ``` bundle install ```
 
