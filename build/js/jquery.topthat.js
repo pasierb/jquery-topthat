@@ -17,7 +17,6 @@
           initialHeight = $this.height();
           $this.data('topthat', settings);
           return $(window).scroll(function(event) {
-            console.log($this);
             if ($(window).scrollTop() > initialPosition.top) {
               return $this.topthat("stick");
             } else {

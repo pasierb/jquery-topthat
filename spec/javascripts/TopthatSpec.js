@@ -28,7 +28,6 @@ describe("topthat", function () {
     it("should add css class", function () {
       fixture.topthat();
       var stickCssClass = fixture.data('topthat').stickCssClass;
-      console.log(stickCssClass);
 
       fixture.topthat("stick");
       expect(fixture.hasClass(stickCssClass)).toBeTruthy();  
@@ -39,7 +38,6 @@ describe("topthat", function () {
     it("should remove css class", function () {
       fixture.topthat();
       var stickCssClass = fixture.data('topthat').stickCssClass;
-      console.log(stickCssClass);
 
       fixture.addClass(stickCssClass);
       expect(fixture.hasClass(stickCssClass)).toBeTruthy(); 

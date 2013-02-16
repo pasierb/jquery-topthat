@@ -15,7 +15,6 @@
         
         $this.data 'topthat', settings
         $(window).scroll (event) ->
-          console.log $this
           if $(window).scrollTop() > initialPosition.top then $this.topthat("stick") else $this.topthat("unstick")
 
 
