@@ -1,11 +1,12 @@
 (($) ->
   
-  defaults = stickCssClass: "fixed-top"
-
-  placeholder = $("<div style='display:none;' class='topthat-ph-" + Date.now() + "'></div>")
   
   methods =
     init: (options) ->
+      defaults = 
+        stickCssClass: "fixed-top"
+        placeholder: $("<div style='display:none;' class='topthat-ph-" + Date.now() + "'></div>")
+      
       settings = $.extend defaults, options
 
       @each (index, elem) ->
@@ -23,10 +24,11 @@
         $this = $(elem)
         data = $this.data()
         unless $this.hasClass data.topthat.stickCssClass
-          $this.replaceWith placeholder
+          $this.replaceWith data.topthat.placeholder
           $this.prependTo "body"
           $this.data data
           $this.addClass data.topthat.stickCssClass
+          data.topthat.onStick.apply(elem) if typeof data.topthat.onStick is "function"
 
     unstick: ->
       @each (index, elem) ->
@@ -34,8 +36,9 @@
         data = $this.data()
         if $this.hasClass data.topthat.stickCssClass
           $this.removeClass data.topthat.stickCssClass
-          placeholder.replaceWith $this
+          data.topthat.placeholder.replaceWith $this
           $this.data data
+          data.topthat.onUnstick.apply(elem) if typeof data.topthat.onUnstick is "function"
 
   
   $.fn.topthat = (method) ->

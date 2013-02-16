@@ -26,12 +26,17 @@ describe("topthat", function () {
   
   describe("stick", function () {
     it("should add css class", function () {
-      fixture.topthat();
+      fixture.topthat().topthat("stick");
       var stickCssClass = fixture.data('topthat').stickCssClass;
-
-      fixture.topthat("stick");
       expect(fixture.hasClass(stickCssClass)).toBeTruthy();  
     });
+
+    it("should trigger onStick callback", function () {
+      var triggered = false;
+      expect(triggered).toBeFalsy();
+      fixture.topthat({ onStick: function () { triggered = true } }).topthat("stick");
+      expect(triggered).toBeTruthy();
+    }); 
   });
   
   describe("unstick", function () {
@@ -44,6 +49,13 @@ describe("topthat", function () {
       fixture.topthat("unstick");
       expect(fixture.hasClass(stickCssClass)).toBeFalsy();  
     });
+
+    it("should trigger onUnstick callback", function () {
+      var triggered = false;
+      expect(triggered).toBeFalsy();
+      fixture.topthat({ onUnstick: function () { triggered = true } }).topthat("stick").topthat("unstick");
+      expect(triggered).toBeTruthy();
+    }); 
   });
 
 });

@@ -1,14 +1,14 @@
 (function() {
 
   (function($) {
-    var defaults, methods, placeholder;
-    defaults = {
-      stickCssClass: "fixed-top"
-    };
-    placeholder = $("<div style='display:none;' class='topthat-ph-" + Date.now() + "'></div>");
+    var methods;
     methods = {
       init: function(options) {
-        var settings;
+        var defaults, settings;
+        defaults = {
+          stickCssClass: "fixed-top",
+          placeholder: $("<div style='display:none;' class='topthat-ph-" + Date.now() + "'></div>")
+        };
         settings = $.extend(defaults, options);
         return this.each(function(index, elem) {
           var $this, initialHeight, initialPosition;
@@ -31,10 +31,13 @@
           $this = $(elem);
           data = $this.data();
           if (!$this.hasClass(data.topthat.stickCssClass)) {
-            $this.replaceWith(placeholder);
+            $this.replaceWith(data.topthat.placeholder);
             $this.prependTo("body");
             $this.data(data);
-            return $this.addClass(data.topthat.stickCssClass);
+            $this.addClass(data.topthat.stickCssClass);
+            if (typeof data.topthat.onStick === "function") {
+              return data.topthat.onStick.apply(elem);
+            }
           }
         });
       },
@@ -45,8 +48,11 @@
           data = $this.data();
           if ($this.hasClass(data.topthat.stickCssClass)) {
             $this.removeClass(data.topthat.stickCssClass);
-            placeholder.replaceWith($this);
-            return $this.data(data);
+            data.topthat.placeholder.replaceWith($this);
+            $this.data(data);
+            if (typeof data.topthat.onUnstick === "function") {
+              return data.topthat.onUnstick.apply(elem);
+            }
           }
         });
       }
