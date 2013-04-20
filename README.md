@@ -38,3 +38,9 @@ Testing
 To install jasmine framework just run ``` bundle install ```
 
 To run tests ``` rake jasmine ``` and got to ``` http://localhost:8888/ ``` 
+
+
+Who is using it?
+----------------------------
+
+* [www.sharewise.com](http://www.en.sharewise.com/)
