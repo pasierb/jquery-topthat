@@ -42,7 +42,10 @@
             data.topthat.placeholder.replaceWith $this
           $this.data data
           data.topthat.onUnstick.apply(elem) if typeof data.topthat.onUnstick is "function"
-
+          elem.className = elem.className
+      body = document.getElementsByTagName('body')[0]
+      body.className = body.className
+      return this
   
   $.fn.topthat = (method) ->
     if methods[method]

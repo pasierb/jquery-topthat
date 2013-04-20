@@ -45,7 +45,8 @@
         });
       },
       unstick: function() {
-        return this.each(function(index, elem) {
+        var body;
+        this.each(function(index, elem) {
           var $this, data;
           $this = $(elem);
           data = $this.data();
@@ -56,10 +57,14 @@
             }
             $this.data(data);
             if (typeof data.topthat.onUnstick === "function") {
-              return data.topthat.onUnstick.apply(elem);
+              data.topthat.onUnstick.apply(elem);
             }
+            return elem.className = elem.className;
           }
         });
+        body = document.getElementsByTagName('body')[0];
+        body.className = body.className;
+        return this;
       }
     };
     return $.fn.topthat = function(method) {
